@@ -1,5 +1,5 @@
 import react, { Component } from 'react';
-import { auth, db } from "../firebase/config"
+import { auth, db } from "../../firebase/config"
 import {TextInput, TouchableOpacity, View, Text, StyleSheet} from 'react-native';
 
 
@@ -18,14 +18,18 @@ class Register extends Component{
 
     register(email, pass, userName){
         auth.createUserWithEmailAndPassword(email, pass)
-    .then( response => {
-        this.setState({registrado: true});
-        console.log("registrado", response);
-     })     
-    .catch( error => {
-      this.setState({error: 'Fallo en el registro.'})
-    })
- }
+            .then( res => {
+                db.collection("usuarios").add ({
+                    owner:auth.currentUser.email,
+                    userName: userName,
+                    createdAt: Date.now(),
+                })
+                .then(res=> console.log(res))
+            })     
+            .catch( error => {
+                console.log(error)
+                })
+        }
 
     
 
@@ -55,8 +59,10 @@ class Register extends Component{
                 value={this.state.username}/>
                 <TouchableOpacity style={styles.boton} onPress={()=> this.register(this.state.email, this.state.password, this.state.userName)}>
                     <Text>Registrarse</Text>
-
                 </TouchableOpacity>
+                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Login")}>
+                    <Text>Ya tengo una cuenta</Text>
+                </TouchableOpacity>                
             </View>
 
         )
@@ -84,6 +90,12 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: 'green'
         
+    },
+    botoncito: {
+        height: 50,
+        paddingVertical:15,
+        paddingHorizontal: 10,
+        borderRadius: 40,        
     }
 })
 
