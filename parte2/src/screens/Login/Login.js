@@ -9,13 +9,15 @@ class Login extends Component{
                 email: '',
                 password: '',
                 userName: '',
-                registrado: false
+                registrado: false,
+                mensajeError: ""
 
             }
         
     }
 
     login(email, pass){
+
         auth.signInWithEmailAndPassword(email, pass)
             .then( res => {
                 console.log("Logeado papu", res)
@@ -23,6 +25,9 @@ class Login extends Component{
             })     
             .catch( error => {
                 console.log(error)
+                this.setState({
+                    mensajeError: "Las credenciales son invalidas"
+                })
                 })
         }
 
@@ -43,12 +48,17 @@ class Login extends Component{
                 secureTextEntry={true}
                 onChangeText={text => this.setState({password:text})}
                 value={this.state.password}/>
-                <TouchableOpacity style={styles.boton} onPress={()=> this.login( this.state.email, this.state.password)}>
-                    <Text>Iniciar sesion</Text>
-                </TouchableOpacity>
                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Register")}>
                     <Text>No tengo cuenta</Text>
-                </TouchableOpacity>               
+                </TouchableOpacity>
+                {this.state.userName <4 & this.state.password <4 ? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.login( this.state.email, this.state.password)}>
+                    <Text>Iniciar sesion</Text>
+                </TouchableOpacity>}
+              
+                <Text style={styles.error}> 
+                    {this.state.mensajeError}
+                </Text>
+
             </View>
 
         )
@@ -78,10 +88,17 @@ const styles = StyleSheet.create({
         
     },
     botoncito: {
-        height: 50,
-        paddingVertical:15,
+        height: 30,
+        paddingVertical:5,
         paddingHorizontal: 10,
         borderRadius: 40,        
+    },
+    error: {
+        height: 30,
+        paddingVertical:5,
+        paddingHorizontal: 10,
+        borderRadius: 40, 
+        color: "red"    
     }
 })
 
