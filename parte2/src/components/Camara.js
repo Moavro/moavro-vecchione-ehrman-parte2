@@ -52,3 +52,4 @@ class Camara extends component{
         )
     }
 }
+export default Camara
