@@ -22,13 +22,11 @@ class Menu extends Component{
  
     render(){
         return(
-            <NavigationContainer>
                 <Tab.Navigator>
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Posteo" component={Posteo}/>
                     <Tab.Screen name="User" component={User}/>
                 </Tab.Navigator>
-            </NavigationContainer>
         )
     }
 }

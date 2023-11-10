@@ -10,7 +10,9 @@ class Register extends Component{
                 email: '',
                 password: '',
                 userName: '',
-                registrado: false
+                registrado: false,
+                mensaje: '',
+                miniBio:'',
 
             }
         
@@ -22,12 +24,17 @@ class Register extends Component{
                 db.collection("usuarios").add ({
                     owner:auth.currentUser.email,
                     userName: userName,
+                    miniBio: miniBio,
                     createdAt: Date.now(),
                 })
-                .then(res=> console.log(res))
+                .then(res=> console.log(res),
+                this.props.navigation.navigate("Login"))
             })     
             .catch( error => {
-                console.log(error)
+                console.log(error),
+                this.setState({
+                    mensaje: error.message
+                })
                 })
         }
 
@@ -57,12 +64,21 @@ class Register extends Component{
                 keyboardType='default'
                 onChangeText={text => this.setState({userName:text})}
                 value={this.state.username}/>
-                <TouchableOpacity style={styles.boton} onPress={()=> this.register(this.state.email, this.state.password, this.state.userName)}>
+                <TextInput
+                style={styles.input}
+                placeholder='minibio'
+                keyboardType='default'
+                onChangeText={text => this.setState({miniBio:text})}
+                value={this.state.miniBio}/>
+                {this.state.userName.length <= 4 && this.state.password.length <=4 && this.state.email.length <= 4 ? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.register( this.state.email, this.state.password, this.state.userName, this.state.miniBio)}>
                     <Text>Registrarse</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
                  <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Login")}>
                     <Text>Ya tengo una cuenta</Text>
-                </TouchableOpacity>                
+                </TouchableOpacity>   
+                <Text style={styles.error}> 
+                    {this.state.mensaje}
+                </Text>            
             </View>
 
         )
@@ -96,6 +112,13 @@ const styles = StyleSheet.create({
         paddingVertical:15,
         paddingHorizontal: 10,
         borderRadius: 40,        
+    },
+    error: {
+        height: 30,
+        paddingVertical:5,
+        paddingHorizontal: 10,
+        borderRadius: 40, 
+        color: "red"    
     }
 })
 
