@@ -21,7 +21,7 @@ class Login extends Component{
         auth.signInWithEmailAndPassword(email, pass)
             .then( res => {
                 console.log("Logeado papu", res)
-                this.props.navigation.navigate("Home")
+                this.props.navigation.navigate("Menu")
             })     
             .catch( error => {
                 console.log(error)
