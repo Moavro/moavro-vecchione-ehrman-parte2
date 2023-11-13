@@ -18,7 +18,7 @@ class Register extends Component{
         
     }
 
-    register(email, pass, userName){
+    register(email, pass, userName, miniBio){
         auth.createUserWithEmailAndPassword(email, pass)
             .then( res => {
                 db.collection("usuarios").add ({

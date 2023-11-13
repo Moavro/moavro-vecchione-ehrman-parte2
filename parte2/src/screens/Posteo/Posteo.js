@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList} from "react-native";
 import {db, auth} from "../../firebase/config"
+import Camara from "../../components/Camara";
 
 
 class Posteo extends Component{
@@ -9,7 +10,9 @@ class Posteo extends Component{
         this.state= {
             post: '',
             descripcion:'',
-            foto: ''
+            foto: '',
+            url: '',
+            showCamera: true
 
         }
     }
@@ -37,11 +40,7 @@ class Posteo extends Component{
                 placeholder='foto'
                 keyboardType='default'
                 onChangeText={text => this.setState({foto:text})}/>
-                <TextInput
-                style={styles.input}
-                placeholder='descripcion'
-                keyboardType='default'
-                onChangeText={text => this.setState({descripcion:text})}/>
+                <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
                 <TouchableOpacity style={styles.boton} onPress={()=> this.posteo(this.state.foto, this.state.descripcion)}>
                     <Text>Subir foto</Text>
                 </TouchableOpacity>             

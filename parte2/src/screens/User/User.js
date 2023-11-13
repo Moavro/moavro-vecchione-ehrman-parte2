@@ -9,12 +9,20 @@ class User extends Component{
         this.state= {
         }
     }
+
+    logout(){
+        auth.signOut();
+        this.props.navigation.navigate("Login")
+    }
     
 
     render(){
         return(
             <View>
                 <Text> User</Text>
+                <TouchableOpacity style={styles.botoncito} onPress={()=> this.logout() }>
+                    <Text>Logout</Text>
+                </TouchableOpacity>
             </View>
         )
     }

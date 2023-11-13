@@ -30,9 +30,7 @@ class Home extends Component{
         )
     }
 
-    logout(){
-        auth.signOut();
-    }
+
 
 
 
