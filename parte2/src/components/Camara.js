@@ -9,7 +9,7 @@ class Camara extends Component{
     constructor(props){
         super(props);
         this.state = {
-            permisos : false, photo: "", showCamera: true
+            permisos : false, photo: "", showCamera: true,
         }
     }
 
@@ -57,16 +57,16 @@ class Camara extends Component{
     }
     render(){
         return(
-            <View>
+            <View style = {styles.vista}>
                 <Camera 
-                //style={styles.camara}
+                style={styles.camara}
                 type={Camera.Constants.Type.front}
                 ref={metodosDeCamara => this.metodosCamara= metodosDeCamara}
                 />
                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.sacarFoto}>
                     <Text>Sacar foto</Text>
                 </TouchableOpacity> 
-                <Image //style={styles.preview}
+                <Image style={styles.preview}
                 source={ {uri: this.state.photo} }/>
                 <View >
                     <TouchableOpacity style={styles.botoncito} onPress={()=> this.aceptarFoto()}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     boton: {
-        height: 50,
+        height: 50 ,
         paddingVertical:15,
         paddingHorizontal: 10,
         borderColor: 'green',
@@ -114,6 +114,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 40, 
         color: "red"    
+    },
+    camara: {
+        height:10,
+        width: 500,
+    },
+    preview:{
+        height:100,
+        width: 800,
+    },
+    vista:{
+        height: "100vh" ,
+        width: "100vw" ,
     }
 })
 
