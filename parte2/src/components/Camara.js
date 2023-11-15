@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {Camera} from "expo-camera"
 import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList} from "react-native";
-import {db, auth} from "../firebase/config"
+import { Image } from "react-native";
+import {db, auth, storage} from "../firebase/config"
 
 class Camara extends Component{
 

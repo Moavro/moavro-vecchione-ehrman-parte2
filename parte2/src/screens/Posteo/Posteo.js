@@ -10,7 +10,6 @@ class Posteo extends Component{
         this.state= {
             post: '',
             descripcion:'',
-            foto: '',
             url: '',
             showCamera: true
 
@@ -30,6 +29,11 @@ class Posteo extends Component{
         .catch(e => console.log(e))
     }
 
+    onImageUpload(url){
+        this.setState({showCamera: false,
+        url: url})
+    }
+
 
     render(){
         return(
@@ -37,11 +41,11 @@ class Posteo extends Component{
                 <Text >Posteo</Text>
                 <TextInput 
                 style={styles.input}
-                placeholder='foto'
+                placeholder='Descripcion'
                 keyboardType='default'
                 onChangeText={text => this.setState({foto:text})}/>
                 <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
-                <TouchableOpacity style={styles.boton} onPress={()=> this.posteo(this.state.foto, this.state.descripcion)}>
+                <TouchableOpacity style={styles.boton} onPress={()=> this.posteo(this.state.url, this.state.descripcion)}>
                     <Text>Subir foto</Text>
                 </TouchableOpacity>             
             </View>
