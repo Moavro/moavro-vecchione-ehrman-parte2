@@ -13,6 +13,7 @@ class Register extends Component{
                 registrado: false,
                 mensaje: '',
                 miniBio:'',
+                fotoPerfil:""
 
             }
         

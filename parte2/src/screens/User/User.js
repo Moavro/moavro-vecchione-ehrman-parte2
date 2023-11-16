@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList} from "react-native";
+import {TextInput, TouchableOpacity, ActivityIndicator, View, Text, StyleSheet, FlatList} from "react-native";
 import {db, auth} from "../../firebase/config"
 
 
@@ -51,13 +51,20 @@ class User extends Component{
         this.props.navigation.navigate("Login")
     }
     
-
     render(){
         console.log(auth.currentUser.email)
         console.log(this.state.posts)
         console.log(this.state.datos)
         return(
-            <View>
+          <View>
+                <FlatList
+                    data= {this.state.datos}
+                    keyExtractor={(item) => item.id}
+                    renderItem={ ({item}) => (
+                        <Text> {item.data.userName}</Text>
+
+                    )}
+                />
                 <Text> User</Text>
                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.logout() }>
                     <Text>Logout</Text>
@@ -103,4 +110,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default User;
+export default User; 
