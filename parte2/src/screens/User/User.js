@@ -7,7 +7,43 @@ class User extends Component{
     constructor(){
         super();
         this.state= {
-        }
+            datos:[],
+            posts: []
+        };
+    }
+
+    componentDidMount(){
+        db.collection("usuarios").where("owner", "==", auth.currentUser.email). onSnapshot(
+            docs => {
+                let user = []
+                docs.forEach (doc => {
+                    user.push({
+                        id: doc.id,
+                        data:doc.data()
+                    })
+                })
+                this.setState({
+                    datos: user,
+                })
+            }
+        )
+        
+        db.collection("posteo").where("owner", "==", auth.currentUser.email).onSnapshot(
+            docs => {
+                let info = []
+                docs.forEach (doc => {
+                    info.push({
+                        id: doc.id,
+                        data:doc.data()
+                    })
+                })
+                this.setState({
+                    posts: info
+                })
+            }
+        )
+
+
     }
 
     logout(){
@@ -17,6 +53,9 @@ class User extends Component{
     
 
     render(){
+        console.log(auth.currentUser.email)
+        console.log(this.state.posts)
+        console.log(this.state.datos)
         return(
             <View>
                 <Text> User</Text>
