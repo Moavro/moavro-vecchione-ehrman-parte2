@@ -54,9 +54,9 @@ class Posteo extends Component{
 }
 const styles = StyleSheet.create({
     form:{paddingHorizontal: 550,
-    paddingVertical: 200},
+    paddingVertical: 20,},
     input:{
-        height:50,
+        height:20,
         paddingVertical:15,
         paddingHorizontal: 10,
         borderWidth:1,
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     boton: {
-        height: 50,
-        paddingVertical:15,
+        paddingVertical:6,
         paddingHorizontal: 10,
         borderColor: 'green',
         borderRadius: 40,
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
         
     },
     botoncito: {
-        height: 30,
         paddingVertical:5,
         paddingHorizontal: 10,
         borderRadius: 40,        
