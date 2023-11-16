@@ -17,8 +17,8 @@ class Posteo extends Component{
     }
 
     posteo(foto, texto){
-        //console.log(foto, descripcion)
-        db.collection('posteo').add({
+        console.log(foto, texto)
+        db.collection('posteo').orderBy("","asc").add({
             owner: auth.currentUser.email,
             imagen: foto,
             descripcion: texto,
@@ -43,7 +43,7 @@ class Posteo extends Component{
                 style={styles.input}
                 placeholder='Descripcion'
                 keyboardType='default'
-                onChangeText={text => this.setState({foto:text})}/>
+                onChangeText={text => this.setState({descripcion:text})}/>
                 <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
                 <TouchableOpacity style={styles.boton} onPress={()=> this.posteo(this.state.url, this.state.descripcion)}>
                     <Text>Subir foto</Text>

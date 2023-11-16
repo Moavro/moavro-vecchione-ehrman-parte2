@@ -24,7 +24,7 @@ class Camara extends Component{
         .catch( e => console.log(e))
     }
     sacarFoto(){
-        this.metodoCamara.takePictureAsync()
+        this.metodosDeCamara.takePictureAsync()
         .then(photo=> {
             this.setState({
                 photo: photo.uri,
@@ -58,15 +58,16 @@ class Camara extends Component{
     render(){
         return(
             <View style = {styles.vista}>
-                <Camera 
+                {this.state.showCamera == true ? 
+                <React.Fragment><Camera 
                 style={styles.camara}
                 type={Camera.Constants.Type.front}
-                ref={metodosDeCamara => this.metodosCamara= metodosDeCamara}
+                ref={metodosDeCamara => this.metodosDeCamara= metodosDeCamara}
                 />
                 <TouchableOpacity 
-                    style={styles.botoncito} onPress={()=> this.sacarFoto}>
+                    style={styles.botoncito} onPress={()=> this.sacarFoto()}>
                     <Text>Sacar foto</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity></React.Fragment> : 
                 <View >
                 <Image style={styles.preview}
                 source={ {uri: this.state.photo} }/>
@@ -77,7 +78,7 @@ class Camara extends Component{
                     <TouchableOpacity style={styles.botoncito} onPress={()=> this.rechazarFoto()}>
                         <Text>Rechazar</Text>
                     </TouchableOpacity>
-                </View>
+                </View>}
             </View>
         )
     }
@@ -124,12 +125,12 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     preview:{
-        height:100,
-        width: 800,
+        height:200,
+        width: 200,
     },
     vista:{
-        height: "70vh" ,
-        width: "10vw" ,
+        height: "60vh" ,
+        width: "30vw" ,
     }
 })
 
