@@ -61,7 +61,10 @@ class User extends Component{
                     data= {this.state.datos}
                     keyExtractor={(item) => item.id}
                     renderItem={ ({item}) => (
-                        <Text> {item.data.userName}</Text>
+                        <View>
+                            <Text> Usuario: {item.data.userName}</Text>
+                            <Text> Mail: {item.data.owner}</Text>
+                        </View>
 
                     )}
                 />
