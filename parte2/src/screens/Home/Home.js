@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList} from "react-native";
 import {db, auth} from "../../firebase/config"
-
+import Post from "../../components/Post";
 
 class Home extends Component{
     constructor(){
         super();
-        this.setState= {
+        this.state= {
             posts:[]
         }
     }
     componentDidMount(){
-        db.collection("posteos").onSnapshot(
+        db.collection("posteo").onSnapshot(
             listaPosteos => {
                 let mostrados = [];
-
                 listaPosteos.forEach(post => {
                     mostrados.push({
                         id: post.id,
@@ -36,9 +35,22 @@ class Home extends Component{
 
 
     render(){
+        //console.log(this.state.posts);
         return(
             <View>
                 <Text> Home vecchio globo quemero</Text>
+                <Text>Lista de Posteos</Text>
+                {
+                    this.state.posts.length === 0 
+                    ?
+                    <Text>Cargando...</Text>
+                    :
+                    <FlatList 
+                        data= {this.state.posts}
+                        keyExtractor={ item => item.id }
+                        renderItem={ ({item}) => <Post propsDePost = { item } /> }
+                    />
+                }
                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Posteo")}>
                 <Text>Subir posteo</Text>
                 </TouchableOpacity> 

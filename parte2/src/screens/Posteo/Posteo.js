@@ -18,7 +18,7 @@ class Posteo extends Component{
 
     posteo(foto, texto){
         console.log(foto, texto)
-        db.collection('posteo').orderBy("","asc").add({
+        db.collection('posteo').add({
             owner: auth.currentUser.email,
             imagen: foto,
             descripcion: texto,
