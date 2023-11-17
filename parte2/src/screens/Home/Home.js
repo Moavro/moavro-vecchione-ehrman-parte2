@@ -35,7 +35,7 @@ class Home extends Component{
 
 
     render(){
-        //console.log(this.state.posts);
+        console.log(this.state.posts);
         return(
             <View>
                 <Text> Home vecchio globo quemero</Text>
@@ -47,7 +47,7 @@ class Home extends Component{
                     :
                     <FlatList 
                         data= {this.state.posts}
-                        keyExtractor={ item => item.id }
+                        keyExtractor={ post => post.id }
                         renderItem={ ({item}) => <Post propsDePost = { item } /> }
                     />
                 }
