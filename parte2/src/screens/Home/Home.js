@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList} from "react-native";
+import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList, ScrollView} from "react-native";
 import {db, auth} from "../../firebase/config"
 import Post from "../../components/Post";
 
@@ -37,30 +37,35 @@ class Home extends Component{
     render(){
         console.log(this.state.posts);
         return(
-            <View>
-                <Text> Home vecchio globo quemero</Text>
-                <Text>Lista de Posteos</Text>
-                {
-                    this.state.posts.length === 0 
-                    ?
-                    <Text>Cargando...</Text>
-                    :
-                    <FlatList 
-                        data= {this.state.posts}
-                        keyExtractor={ post => post.id }
-                        renderItem={ ({item}) => <Post propsDePost = { item } /> }
-                    />
-                }
-                <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Posteo")}>
-                <Text>Subir posteo</Text>
-                </TouchableOpacity> 
-            </View>
+            <ScrollView style={styles.scrollView}>
+                <View>
+                    <Text> Home vecchio globo quemero</Text>
+                    <Text>Lista de Posteos</Text>
+                    {
+                        this.state.posts.length === 0 
+                        ?
+                        <Text>Cargando...</Text>
+                        :
+                        <FlatList 
+                            data= {this.state.posts}
+                            keyExtractor={ post => post.id }
+                            renderItem={ ({item}) => <Post navigation= {this.props.navigation} propsDePost = { item } /> }
+                        />
+                    }
+                    <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Posteo")}>
+                    <Text>Subir posteo</Text>
+                    </TouchableOpacity> 
+                </View>
+            </ScrollView>
         )
     }
 }
 const styles = StyleSheet.create({
     form:{paddingHorizontal: 550,
     paddingVertical: 200},
+    scrollView: {
+        flex: 1,
+      },
     input:{
         height:50,
         paddingVertical:15,
