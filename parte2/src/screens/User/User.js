@@ -33,7 +33,7 @@ class User extends Component {
                         userName: user.userName,
                         email: user.owner,
                         miniBio: user.miniBio,
-                        foto: user.fotoPerfil
+                        fotoPerfil: user.fotoPerfil
                     })
                 });
             }
@@ -117,15 +117,13 @@ class User extends Component {
 
 
     render() {
+      console.log(this.state.fotoPerfil,)
         return (
           <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
               <View style={styles.leftColumn}>
-                <Image
-                  style={styles.fotoperfil}
-                  source={this.state.fotoPerfil}
-                  resizeMode="cover"
-                />
+                <Image style={styles.foto} 
+                source={this.state.fotoPerfil ? { uri: this.state.fotoPerfil } : null}/>
     
                 <View style={styles.datos}>
                     <Text style={styles.titulo}> Mi perfil:</Text>
@@ -282,7 +280,12 @@ class User extends Component {
         paddingHorizontal: 10,
         borderRadius: 40,
         color: "red",
+      },foto:{
+        height:200,
+        width: 200,
       },
+      
+      
     });
     
     export default User;

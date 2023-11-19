@@ -35,7 +35,7 @@ class OtroUser extends Component {
                         userName: user.userName,
                         email: user.owner,
                         miniBio: user.miniBio,
-                        foto: user.fotoPerfil
+                        fotoPerfil: user.fotoPerfil
                     })
                 });
             }
@@ -71,11 +71,8 @@ class OtroUser extends Component {
                 onPress={() => this.props.navigation.navigate("Menu")}>
                   <FontAwesome style={styles.flecha} name="arrow-left" size='large'/>
               </TouchableOpacity>
-                <Image
-                  style={styles.fotopp}
-                  source={this.state.fotoPerfil}
-                  resizeMode="cover"
-                />
+              <Image style={styles.foto} 
+                source={this.state.fotoPerfil ? { uri: this.state.fotoPerfil } : null}/>
     
                 <View style={styles.datos}>
                     <Text style={styles.titulo}> Mi perfil:</Text>
@@ -178,6 +175,9 @@ class OtroUser extends Component {
         paddingHorizontal: 10,
         borderRadius: 40,
         color: "red",
+      },foto:{
+        height:200,
+        width: 200,
       },
     });
     
