@@ -3,12 +3,13 @@ import {TextInput, TouchableOpacity, ActivityIndicator, View, Text, StyleSheet, 
 import {db, auth} from "../../firebase/config"
 import Post from "../../components/Post"
 import firebase from "firebase";
+import { FontAwesome } from '@expo/vector-icons';
 
 class OtroUser extends Component {
     constructor() {
         super()
         this.state = {
-            userPosts: [],
+            posts: [],
             userName: '',
             fotoPerfil: '',
             miniBio: '',
@@ -21,7 +22,7 @@ class OtroUser extends Component {
 
     componentDidMount() {
         this.getUserInfo();
-        this.getUserPosts();
+        this.getposts();
     }
 
     getUserInfo() {
@@ -41,23 +42,24 @@ class OtroUser extends Component {
         )
     }
 
-    getUserPosts() {
+    getposts() {
         db.collection('posteo').where('owner', '==', this.props.route.params.email).orderBy('createdAt', 'desc').onSnapshot(
             docs => {
-                let posts = [];
+                let mostrados = [];
                 docs.forEach(doc => {
-                    posts.push({
+                    mostrados.push({
                         id: doc.id,
-                        data: doc.data()
+                        datos: doc.data()
                     })
-                    console.log(('userPosts:', posts))
+                    console.log(('posts:', mostrados))
                     this.setState({
-                        userPosts: posts
+                        posts: mostrados
                     })
                 })
             }
         )
     }
+    
 
 
     render() {
@@ -65,6 +67,10 @@ class OtroUser extends Component {
           <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
               <View style={styles.leftColumn}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Menu")}>
+                  <FontAwesome style={styles.flecha} name="arrow-left" size='large'/>
+              </TouchableOpacity>
                 <Image
                   style={styles.fotopp}
                   source={this.state.fotoPerfil}
@@ -76,23 +82,23 @@ class OtroUser extends Component {
                   <Text style={styles.textoDestacado}> Usuario: {this.state.userName}</Text>
                   <Text style={styles.textoDestacado}> Mail: {this.state.email}</Text>
                   <Text style={styles.textoDestacado}>
-                    Cantidad de posteos: {this.state.userPosts.length}
+                    Cantidad de posteos: {this.state.posts.length}
                   </Text>
                   <Text style={styles.textoDestacado}>Biografia: {this.state.miniBio}</Text>
                 </View>
-                <Text>Lista de Posteos</Text>
-{/*                 {this.state.userPosts.length === 0 ? (
+                <Text>Posteos</Text>
+                 {this.state.posts.length === 0 ? (
                 <Text>No hay posts</Text>
                     ) : (
                         <FlatList
-                            data={this.state.userPosts}
+                            data={this.state.posts}
                             keyExtractor={(post) => post.id}
                             renderItem={({ item }) => {
                                 console.log(item); 
                                 return <Post navigation={this.props.navigation} propsDePost={item} />;
                             }}
                         />
-                    )} */}
+                    )} 
               </View>
             </View>
           </ScrollView>
@@ -109,7 +115,7 @@ class OtroUser extends Component {
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
-        padding: 20,
+        padding: 5,
       },
       leftColumn: {
         flex: 1,

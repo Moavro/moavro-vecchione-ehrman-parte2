@@ -7,7 +7,7 @@ class User extends Component {
     constructor() {
         super()
         this.state = {
-            userPosts: [],
+            posts: [],
             userName: '',
             fotoPerfil: '',
             miniBio: '',
@@ -20,7 +20,7 @@ class User extends Component {
 
     componentDidMount() {
         this.getUserInfo();
-        this.getUserPosts();
+        this.getposts();
     }
 
     getUserInfo() {
@@ -40,17 +40,17 @@ class User extends Component {
         )
     }
 
-    getUserPosts() {
+    getposts() {
         db.collection('posteo').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
             docs => {
-                let posts = [];
+                let mostrados = [];
                 docs.forEach(doc => {
-                    posts.push({
+                    mostrados.push({
                         id: doc.id,
-                        data: doc.data()
+                        datos: doc.data()
                     })
                     this.setState({
-                        userPosts: posts
+                        posts: mostrados
                     })
                 })
             }
@@ -94,6 +94,16 @@ class User extends Component {
         }
 
     }
+    eliminarUser(){
+      console.log("En deleteAccount")
+    
+      auth.currentUser.delete()
+          .then(() => {
+            this.props.navigation.navigate('Register', {navigation: this.props.navigation.navigate })
+           }).catch((error) => {
+              console.log(error)
+            })
+          }
 
 
     render() {
@@ -112,15 +122,26 @@ class User extends Component {
                   <Text style={styles.textoDestacado}> Usuario: {this.state.userName}</Text>
                   <Text style={styles.textoDestacado}> Mail: {this.state.email}</Text>
                   <Text style={styles.textoDestacado}>
-                    Cantidad de posteos: {this.state.userPosts.length}
+                    Cantidad de posteos: {this.state.posts.length}
                   </Text>
                   <Text style={styles.textoDestacado}>Biografia: {this.state.miniBio}</Text>
+                  <TouchableOpacity  onPress={() => this.eliminarUser()}>
+                    <Text style={styles.error}>Delete account</Text>
+                  </TouchableOpacity>
                 </View>
-{/*                 <FlatList
-                            data={this.state.userPosts}
-                            keyExtractor={onePost => onePost.id.toString()}
-                            renderItem={({ item }) => <Post navigation= {this.props.navigation} propsDePost = { item } /> }
-                        />  */}
+                <Text>Posteos</Text>
+                {this.state.posts.length === 0 ? (
+                <Text>No hay posts</Text>
+                    ) : (
+                        <FlatList
+                            data={this.state.posts}
+                            keyExtractor={(post) => post.id}
+                            renderItem={({ item }) => {
+                                console.log(item); 
+                                return <Post navigation={this.props.navigation} propsDePost={item} />;
+                            }}
+                        />
+                    )} 
               </View>
     
               <View style={styles.rightColumn}>

@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator()
 
 
 
-
 class Menu extends Component{
     constructor(props){
         super(props);
@@ -27,7 +26,6 @@ class Menu extends Component{
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Posteo" component={Posteo}/>
                     <Tab.Screen name="User" component={User}/>
-                    <Tab.Screen name="OtroUser" component={OtroUser}/>
                 </Tab.Navigator>
         )
     }

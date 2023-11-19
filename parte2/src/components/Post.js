@@ -48,8 +48,8 @@ class Post extends Component {
       console.log(this.props);
       return (
         <View >
-                <Text>----------------------------------------------------</Text>
-                <Text>Datos del Post</Text>
+                
+                
                 <Image style={styles.foto} 
                 source={this.props.propsDePost.datos && this.props.propsDePost.datos.imagen ? { uri: this.props.propsDePost.datos.imagen } : null}/>
                 <TouchableOpacity  onPress={() => this.props.navigation.navigate('OtroUser', {email: this.props.propsDePost.datos.owner})}>
