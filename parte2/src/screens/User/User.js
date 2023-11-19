@@ -94,6 +94,16 @@ class User extends Component {
         }
 
     }
+    eliminarPost = (postId) => {
+      db.collection('posteo').doc(postId).delete()
+        .then(() => {
+          console.log("Post eliminado");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
     eliminarUser(){
       console.log("En deleteAccount")
     
@@ -112,7 +122,7 @@ class User extends Component {
             <View style={styles.container}>
               <View style={styles.leftColumn}>
                 <Image
-                  style={styles.fotopp}
+                  style={styles.fotoperfil}
                   source={this.state.fotoPerfil}
                   resizeMode="cover"
                 />
@@ -133,16 +143,24 @@ class User extends Component {
                 {this.state.posts.length === 0 ? (
                 <Text>No hay posts</Text>
                     ) : (
-                        <FlatList
-                            data={this.state.posts}
-                            keyExtractor={(post) => post.id}
-                            renderItem={({ item }) => {
-                                console.log(item); 
-                                return <Post navigation={this.props.navigation} propsDePost={item} />;
-                            }}
-                        />
-                    )} 
-              </View>
+                      <FlatList
+                      data={this.state.posts}
+                      keyExtractor={(post) => post.id}
+                      renderItem={({ item }) => {
+                        console.log(item);
+                        return (
+                          <View>
+                            <Post navigation={this.props.navigation} propsDePost={item} />
+                            <TouchableOpacity onPress={() => this.eliminarPost(item.id)}>
+                              <Text style={styles.error}>Eliminar Post</Text>
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      }}
+                    />
+                  )}
+                </View>
+      
     
               <View style={styles.rightColumn}>
                 <View style={styles.form}>
@@ -215,7 +233,7 @@ class User extends Component {
         justifyContent: "flex-start",
         alignItems: "flex-start",
       },
-      fotopp: {
+      fotoperfil: {
         height: 150,
         width: 150,
         borderRadius: 75,
