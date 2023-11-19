@@ -7,6 +7,7 @@ import Home from "../screens/Home/Home";
 import Posteo from "../screens/Posteo/Posteo";
 import User from "../screens/User/User";
 import OtroUser from "../screens/OtroUser/OtroUser"
+import Search from "../screens/Search/Search"
 
 const Tab = createBottomTabNavigator()
 
@@ -26,6 +27,7 @@ class Menu extends Component{
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Posteo" component={Posteo}/>
                     <Tab.Screen name="User" component={User}/>
+                    <Tab.Screen name="Search" component={Search}/>
                 </Tab.Navigator>
         )
     }
