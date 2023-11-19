@@ -6,6 +6,7 @@ import {db, auth} from "../firebase/config"
 import Home from "../screens/Home/Home";
 import Posteo from "../screens/Posteo/Posteo";
 import User from "../screens/User/User";
+import OtroUser from "../screens/OtroUser/OtroUser"
 
 const Tab = createBottomTabNavigator()
 
@@ -26,6 +27,7 @@ class Menu extends Component{
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Posteo" component={Posteo}/>
                     <Tab.Screen name="User" component={User}/>
+                    <Tab.Screen name="OtroUser" component={OtroUser}/>
                 </Tab.Navigator>
         )
     }

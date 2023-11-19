@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {TextInput, TouchableOpacity, ActivityIndicator, View, Text, StyleSheet, FlatList, Image, ScrollView} from "react-native";
 import {db, auth} from "../../firebase/config"
+import Post from "../../components/Post"
+import firebase from "firebase";
 
 class OtroUser extends Component {
     constructor() {
@@ -40,7 +42,7 @@ class OtroUser extends Component {
     }
 
     getUserPosts() {
-        db.collection('posts').where('owner', '==', this.props.route.params.email).orderBy('createdAt', 'desc').onSnapshot(
+        db.collection('posteo').where('owner', '==', this.props.route.params.email).orderBy('createdAt', 'desc').onSnapshot(
             docs => {
                 let posts = [];
                 docs.forEach(doc => {
@@ -48,6 +50,7 @@ class OtroUser extends Component {
                         id: doc.id,
                         data: doc.data()
                     })
+                    console.log(('userPosts:', posts))
                     this.setState({
                         userPosts: posts
                     })
@@ -77,6 +80,19 @@ class OtroUser extends Component {
                   </Text>
                   <Text style={styles.textoDestacado}>Biografia: {this.state.miniBio}</Text>
                 </View>
+                <Text>Lista de Posteos</Text>
+{/*                 {this.state.userPosts.length === 0 ? (
+                <Text>No hay posts</Text>
+                    ) : (
+                        <FlatList
+                            data={this.state.userPosts}
+                            keyExtractor={(post) => post.id}
+                            renderItem={({ item }) => {
+                                console.log(item); 
+                                return <Post navigation={this.props.navigation} propsDePost={item} />;
+                            }}
+                        />
+                    )} */}
               </View>
             </View>
           </ScrollView>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {TextInput, TouchableOpacity, ActivityIndicator, View, Text, StyleSheet, FlatList, Image, ScrollView} from "react-native";
 import {db, auth} from "../../firebase/config"
+import Post from "../../components/Post"
 
 class User extends Component {
     constructor() {
@@ -40,7 +41,7 @@ class User extends Component {
     }
 
     getUserPosts() {
-        db.collection('posts').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
+        db.collection('posteo').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
             docs => {
                 let posts = [];
                 docs.forEach(doc => {
@@ -115,6 +116,11 @@ class User extends Component {
                   </Text>
                   <Text style={styles.textoDestacado}>Biografia: {this.state.miniBio}</Text>
                 </View>
+{/*                 <FlatList
+                            data={this.state.userPosts}
+                            keyExtractor={onePost => onePost.id.toString()}
+                            renderItem={({ item }) => <Post navigation= {this.props.navigation} propsDePost = { item } /> }
+                        />  */}
               </View>
     
               <View style={styles.rightColumn}>
