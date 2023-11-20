@@ -11,7 +11,7 @@ class Home extends Component{
         }
     }
     componentDidMount(){
-        db.collection("posteo").orderBy("createdAt","desc").limit(1).onSnapshot(
+        db.collection("posteo").orderBy("createdAt","desc").onSnapshot(
             listaPosteos => {
                 let mostrados = [];
                 listaPosteos.forEach(post => {

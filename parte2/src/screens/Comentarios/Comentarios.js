@@ -10,7 +10,7 @@ class Comentarios extends Component{
         this.state= {
             comentarioNuevo: "", 
             id:"",
-            info:{}
+            info:[]
         }
     }
     componentDidMount(){
@@ -35,11 +35,11 @@ class Comentarios extends Component{
     }
 
     render(){
-        
+        console.log(this.state.info)
         return(
             <ScrollView style={styles.scrollView}>
                 <View>
-{/*                     { <FlatList 
+                     { <FlatList 
                         data= {this.state.info.comentarios}
                         keyExtractor={ item => item.createdAt.toString()}
                         renderItem={ ({item}) => <View> 
@@ -47,7 +47,7 @@ class Comentarios extends Component{
                             <Text> {item.comentario} </Text>
                             </View>
                             }
-                    /> } */}
+                    /> } 
                     <TextInput
                         onChangeText={text => this.setState({comentarioNuevo: text})}
                         style = {styles.input}
