@@ -39,23 +39,30 @@ class Comentarios extends Component{
     }
 
     render(){
-        console.log(this.state.info)
+        console.log(this.state.info.comentarios)
         return(
             <ScrollView style={styles.scrollView}>
                 <View>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate("Menu")}>
-                        <FontAwesome style={styles.flecha} name="arrow-left" size='large'/>
+                            onPress={() => this.props.navigation.navigate("Menu")}>
+                            <FontAwesome style={styles.flecha} name="arrow-left" size='large'/>
                     </TouchableOpacity>
-                     { <FlatList 
-                        data= {this.state.info.comentarios}
+
+                    {this.state.info.comentarios && this.state.info.comentarios.length > 0 ? (
+                        <FlatList 
+                        data= {this.state.info.comentarios.reverse()}
                         keyExtractor={ item => item.createdAt.toString()}
                         renderItem={ ({item}) => <View> 
                             <Text> {item.owner} comentó:</Text>
                             <Text> {item.comentario} </Text>
                             </View>
                             }
-                    /> } 
+                    /> 
+                    ) :
+                    (<Text> Aún no hay comentarios</Text>)
+                    }
+                    
+
                     <TextInput
                         onChangeText={text => this.setState({comentarioNuevo: text})}
                         style = {styles.input}
@@ -63,9 +70,14 @@ class Comentarios extends Component{
                         placeholder='Agregar un comentario'
                         value={this.state.comentarioNuevo}
                     />
-                    <TouchableOpacity style ={styles.boton} onPress={()=> this.agregarComentario(this.state.id,this.state.comentarioNuevo)}>
-                    <Text> Subir comentario</Text>
-                    </TouchableOpacity> 
+
+                    {this.state.comentarioNuevo.length > 0 ? 
+                            <TouchableOpacity style ={styles.boton} onPress={()=> this.agregarComentario(this.state.id,this.state.comentarioNuevo)}>
+                            <Text> Subir comentario</Text>
+                            </TouchableOpacity> 
+                    :
+                    null}
+
                 </View>
             </ScrollView>
         )
