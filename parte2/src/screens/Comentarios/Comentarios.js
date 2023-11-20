@@ -15,13 +15,15 @@ class Comentarios extends Component{
     }
     componentDidMount(){
         
-        db.collection("posteo").doc(this.props.route.params.id).onSnapshot(doc => {
-            this.setState({
-                id: doc.id,
-                info: doc.data(),
-            }), 
-            console.log(this.state.id)
-        })
+        db.collection("posteo").doc(this.props.route.params.id).onSnapshot(
+            doc => {
+                this.setState({
+                    id: doc.id,
+                    info: doc.data(),
+                }), 
+                console.log("State info:", this.state.info);
+                console.log(this.state.id);
+            })
         
     }
     agregarComentario(id, texto){
