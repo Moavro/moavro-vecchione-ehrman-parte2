@@ -11,7 +11,7 @@ class Home extends Component{
         }
     }
     componentDidMount(){
-        db.collection("posteo").onSnapshot(
+        db.collection("posteo").orderBy("createdAt","desc").limit(1).onSnapshot(
             listaPosteos => {
                 let mostrados = [];
                 listaPosteos.forEach(post => {
@@ -53,7 +53,7 @@ class Home extends Component{
                         />
                     }
                     <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Posteo")}>
-                    <Text>Subir posteo</Text>
+                    <Text style={styles.botoncito}>Subir posteo</Text>
                     </TouchableOpacity> 
                 </View>
             </ScrollView>
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
         height: 30,
         paddingVertical:5,
         paddingHorizontal: 10,
-        borderRadius: 40,        
+        borderRadius: 40, 
+        width:100       
     },
     error: {
         height: 30,

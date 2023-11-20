@@ -70,23 +70,29 @@ class Register extends Component{
                 placeholder='username'
                 keyboardType='default'
                 onChangeText={text => this.setState({userName:text})}
-                value={this.state.username}/>
+                value={this.state.userName}/>
                 <TextInput
                 style={styles.input}
                 placeholder='minibio'
                 keyboardType='default'
                 onChangeText={text => this.setState({miniBio:text})}
                 value={this.state.miniBio}/>
+
                 <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
-                {this.state.userName.length <= 4 && this.state.password.length <=4 && this.state.email.length <= 4 ? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.register( this.state.email, this.state.password, this.state.userName, this.state.miniBio, this.state.fotoPerfil)}>
+
+
+                {(this.state.userName.length <= 4 && this.state.password.length <= 4 && this.state.email.length <= 4 )? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.register( this.state.email, this.state.password, this.state.userName, this.state.miniBio, this.state.fotoPerfil)}>
                     <Text>Registrarse</Text>
                 </TouchableOpacity>}
+
                  <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Login")}>
                     <Text>Ya tengo una cuenta</Text>
                 </TouchableOpacity>   
+
                 <Text style={styles.error}> 
                     {this.state.mensaje}
                 </Text>            
+
             </View>
 
         )

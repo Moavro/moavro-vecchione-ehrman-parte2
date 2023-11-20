@@ -9,7 +9,8 @@ class Post extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        like: false
+        like: false,
+        comentarios: "",
       }
     }
   
@@ -27,6 +28,16 @@ class Post extends Component {
           this.setState({ like: true})
         }})
       }
+  }
+  comentar(coment){
+    const idPost = this.props.propsDePost.id;
+    db.collection("posteo").doc(idPost).update({
+      comentarios: firebase.firestore.FieldValue.arrayUnion(coment)
+    })
+    .then(()=>{
+      this.setState({comentarios: ""})
+    })
+    .catch(err => console.log(err))
   }
 
   likear(){
@@ -66,6 +77,18 @@ class Post extends Component {
                   <Text style={styles.boton}> Like</Text>
                 </TouchableOpacity>
                 }
+                {this.state.comentarios != "" ?
+                <Text> hola</Text> 
+                : 
+                <TouchableOpacity style={styles.comentario} onPress ={ () => this.props.navigation.navigate("Comentarios", this.props.propsDePost.datos.owner)}>
+                  <Text> Cantidad de comentarios: {this.props.propsDePost.datos.comentarios.length} </Text>
+                </TouchableOpacity>
+                
+                
+                }
+
+
+
         </View>
       );
     }
@@ -76,6 +99,11 @@ class Post extends Component {
     container: {
       height: 100,
       width: 200
+    },
+    comentario:{
+      borderColor: 'green',
+      borderRadius: 40,
+      
     },
     foto:{
         height:200,
@@ -97,7 +125,7 @@ class Post extends Component {
       paddingHorizontal: 10,
       borderRadius: 40,        
       width:90,
-  },
+    },
   });
   
   export default Post;

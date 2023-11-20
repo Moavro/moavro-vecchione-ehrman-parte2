@@ -23,9 +23,12 @@ class Posteo extends Component{
             imagen: foto,
             descripcion: texto,
             likes:[],
+            comentarios: [],
             createdAt: Date.now(),
         })
-        .then()
+        .then(this.setState({
+            showCamera: true,
+        }))
         .catch(e => console.log(e))
     }
 
@@ -39,15 +42,23 @@ class Posteo extends Component{
         return(
             <View style={styles.form}>
                 <Text >Posteo</Text>
+
+                {this.state.showCamera? 
+                <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
+                :
+                <>
                 <TextInput 
                 style={styles.input}
                 placeholder='Descripcion'
                 keyboardType='default'
                 onChangeText={text => this.setState({descripcion:text})}/>
-                <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
+                
+
                 <TouchableOpacity style={styles.boton} onPress={()=> this.posteo(this.state.url, this.state.descripcion)}>
                     <Text>Subir foto</Text>
-                </TouchableOpacity>             
+                </TouchableOpacity>  
+                </>
+                }
             </View>
         )
     }
