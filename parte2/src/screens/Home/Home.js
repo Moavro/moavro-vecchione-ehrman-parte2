@@ -39,8 +39,7 @@ class Home extends Component{
         return(
             <ScrollView style={styles.scrollView}>
                 <View>
-                    <Text> Home vecchio globo quemero</Text>
-                    <Text>Lista de Posteos</Text>
+                    <Text>Posteos</Text>
                     {
                         this.state.posts.length === 0 
                         ?

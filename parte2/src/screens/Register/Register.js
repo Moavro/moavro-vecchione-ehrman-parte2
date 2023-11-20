@@ -47,54 +47,54 @@ class Register extends Component{
 
     
 
-
     render(){
         return(
-            <View style={styles.form}>
-                <Text >Register</Text>
-                <TextInput 
-                style={styles.input}
-                placeholder='email'
-                keyboardType='email-address'
-                onChangeText={text => this.setState({email:text})}
-                value={this.state.email}/>
-                <TextInput
-                style={styles.input}
-                placeholder='password'
-                keyboardType='default'
-                secureTextEntry={true}
-                onChangeText={text => this.setState({password:text})}
-                value={this.state.password}/>
-                <TextInput
-                style={styles.input}
-                placeholder='username'
-                keyboardType='default'
-                onChangeText={text => this.setState({userName:text})}
-                value={this.state.userName}/>
-                <TextInput
-                style={styles.input}
-                placeholder='minibio'
-                keyboardType='default'
-                onChangeText={text => this.setState({miniBio:text})}
-                value={this.state.miniBio}/>
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <Text >Register</Text>
+                    <TextInput 
+                    style={styles.input}
+                    placeholder='email'
+                    keyboardType='email-address'
+                    onChangeText={text => this.setState({email:text})}
+                    value={this.state.email}/>
+                    <TextInput
+                    style={styles.input}
+                    placeholder='password'
+                    keyboardType='default'
+                    secureTextEntry={true}
+                    onChangeText={text => this.setState({password:text})}
+                    value={this.state.password}/>
+                    <TextInput
+                    style={styles.input}
+                    placeholder='username'
+                    keyboardType='default'
+                    onChangeText={text => this.setState({userName:text})}
+                    value={this.state.userName}/>
+                    <TextInput
+                    style={styles.input}
+                    placeholder='minibio'
+                    keyboardType='default'
+                    onChangeText={text => this.setState({miniBio:text})}
+                    value={this.state.miniBio}/>
 
-                <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
+                    <Camara onImageUpload = {(url) => this.onImageUpload(url)}/>
 
 
-                {(this.state.userName.length <= 4 && this.state.password.length <= 4 && this.state.email.length <= 4 )? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.register( this.state.email, this.state.password, this.state.userName, this.state.miniBio, this.state.fotoPerfil)}>
-                    <Text>Registrarse</Text>
-                </TouchableOpacity>}
+                    {(this.state.userName.length <= 4 && this.state.password.length <= 4 && this.state.email.length <= 4 )? <Text> </Text> : <TouchableOpacity style={styles.boton} onPress={()=> this.register( this.state.email, this.state.password, this.state.userName, this.state.miniBio, this.state.fotoPerfil)}>
+                        <Text>Registrarse</Text>
+                    </TouchableOpacity>}
 
-                 <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Login")}>
-                    <Text>Ya tengo una cuenta</Text>
-                </TouchableOpacity>   
+                    <TouchableOpacity style={styles.botoncito} onPress={()=> this.props.navigation.navigate("Login")}>
+                        <Text>Ya tengo una cuenta</Text>
+                    </TouchableOpacity>   
 
-                <Text style={styles.error}> 
-                    {this.state.mensaje}
-                </Text>            
+                    <Text style={styles.error}> 
+                        {this.state.mensaje}
+                    </Text>            
 
+                </View>
             </View>
-
         )
     }
 }
@@ -102,6 +102,13 @@ class Register extends Component{
 const styles = StyleSheet.create({
     form:{paddingHorizontal: 550,
     paddingVertical: 200},
+    container: {
+        backgroundColor: "white",
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+        padding: 20,
+      },
     input:{
         height:50,
         paddingVertical:15,
