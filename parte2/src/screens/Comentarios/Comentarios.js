@@ -3,6 +3,8 @@ import {TextInput, TouchableOpacity, View, Text, StyleSheet, FlatList, ScrollVie
 import {db, auth} from "../../firebase/config"
 import Post from "../../components/Post";
 import firebase from 'firebase'
+import { FontAwesome } from '@expo/vector-icons';
+
 
 class Comentarios extends Component{
     constructor(props){
@@ -15,7 +17,7 @@ class Comentarios extends Component{
     }
     componentDidMount(){
         
-        db.collection("posteo").doc(this.props.route.params.id).onSnapshot(
+        db.collection("posteo").doc(this.props.route.params.infoPost).onSnapshot(
             doc => {
                 this.setState({
                     id: doc.id,
@@ -41,6 +43,10 @@ class Comentarios extends Component{
         return(
             <ScrollView style={styles.scrollView}>
                 <View>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate("Menu")}>
+                        <FontAwesome style={styles.flecha} name="arrow-left" size='large'/>
+                    </TouchableOpacity>
                      { <FlatList 
                         data= {this.state.info.comentarios}
                         keyExtractor={ item => item.createdAt.toString()}
@@ -60,10 +66,6 @@ class Comentarios extends Component{
                     <TouchableOpacity style ={styles.boton} onPress={()=> this.agregarComentario(this.state.id,this.state.comentarioNuevo)}>
                     <Text> Subir comentario</Text>
                     </TouchableOpacity> 
-
-                    <TouchableOpacity style ={styles.botoncito} onPress={() => this.props.navigation.navigate('Menu',)}>
-                        <Text>Volver a Home</Text>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
         )

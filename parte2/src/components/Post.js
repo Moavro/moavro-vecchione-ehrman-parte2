@@ -80,7 +80,7 @@ class Post extends Component {
                 {this.state.comentarios != "" ?
                 <Text> hola</Text> 
                 : 
-                <TouchableOpacity style={styles.comentario} onPress ={ () => this.props.navigation.navigate("Comentarios", this.props.propsDePost.datos.owner)}>
+                <TouchableOpacity style={styles.comentario} onPress ={ () => this.props.navigation.navigate("Comentarios", {infoPost: this.props.propsDePost.id})}>
                   <Text> Cantidad de comentarios: {this.props.propsDePost.datos.comentarios.length} </Text>
                 </TouchableOpacity>
                 
